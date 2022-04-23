@@ -20,4 +20,8 @@ urlpatterns = [
     path('auto_update/<int:pks>/', views.AutoUpdate.as_view(), name='auto_update_pk'),
     path('auto_update/<slug:slugify>/', views.AutoUpdate.as_view(), name='auto_update_slug'),
 
+    path('make_delete/<int:pk>/', views.MakeDelete.as_view(), name='make_delete'),
+    path('auto_delete/<int:pks>/', views.AutoDelete.as_view(), name='auto_delete_pk'),
+    path('auto_delete/<slug:slugify>/', views.AutoDelete.as_view(), name='auto_delete_slug'),
+
 ]

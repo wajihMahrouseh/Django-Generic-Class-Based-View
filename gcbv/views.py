@@ -152,3 +152,32 @@ class AutoUpdate(UpdateView):
         context = super().get_context_data(**kwargs)
         context['zxc'] = 'Hello from get_context_data method!'
         return context
+
+
+# delete view
+class MakeDelete(DeleteView):
+    model = Make
+    success_url = reverse_lazy('gcbv:auto_detail_pk', args=[5])
+
+
+class AutoDelete(DeleteView):
+    model = Auto
+    # queryset = Auto.objects.all()
+    fields ='__all__'
+    pk_url_kwarg = 'pks'
+    slug_field = 'nickname'
+    slug_url_kwarg = 'slugify'
+    query_pk_and_slug = True
+    success_url = reverse_lazy('gcbv:auto_detail_pk', args=[5])
+    template_name = 'gcbv/auto_confirm_delete_v.html'
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # return queryset.filter(make__name='BMW')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zxc'] = 'Hello from get_context_data method!'
+        return context
