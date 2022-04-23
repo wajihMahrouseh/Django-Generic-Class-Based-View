@@ -9,6 +9,8 @@ from django.views.generic import (
 )
 
 from .models import Make, Auto
+from .forms import FormEx
+
 # Create your views here.
 
 # list view
@@ -28,7 +30,7 @@ class AutoList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['zxc'] = 'Hello form get_context_data method!'
+        context['zxc'] = 'Hello from get_context_data method!'
         return context
 
     def get_queryset(self):
@@ -54,7 +56,7 @@ class AutoDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['zxc'] = 'Hello form get_context_data method!'
+        context['zxc'] = 'Hello from get_context_data method!'
         return context
 
     def get_queryset(self):
@@ -67,3 +69,24 @@ class AutoDetail(DetailView):
         obj.mileage = obj.mileage + 1
         obj.save()
         return obj
+
+
+# Form View
+class FormExView(FormView):
+    form_class = FormEx  
+    initial = {'name':'spaceX'}
+    success_url = '/form/'
+    template_name = 'gcbv/form.html'
+    
+    def form_valid(self, form):
+        print(">> FORM VALID.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(">> FORM INVALID.")
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zxc'] = 'Hello from get_context_data method!'
+        return context

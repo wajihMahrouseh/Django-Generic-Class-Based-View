@@ -8,4 +8,7 @@ urlpatterns = [
     path('auto_detail/<int:pks>/', views.AutoDetail.as_view()),
     path('auto_detail/<slug:slugify>/', views.AutoDetail.as_view()),
 
+    path('form/', views.FormExView.as_view()),
+
+
 ]
