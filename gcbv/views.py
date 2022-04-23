@@ -94,16 +94,16 @@ class FormExView(FormView):
 
 
 # Create view
-class MakeCrate(CreateView):
+class MakeCreate(CreateView):
     model = Make
     fields = ['name']
 
 
-class AutoCrate(CreateView):
+class AutoCreate(CreateView):
     model = Auto
     fields ='__all__'
     form_class = None
-    success_url = reverse_lazy('gcbv:auto_detail', args=[5])
+    success_url = reverse_lazy('gcbv:auto_detail_pk', args=[5])
     template_name = 'gcbv/auto_form_v.html'
 
 
@@ -114,3 +114,41 @@ class AutoCrate(CreateView):
     def form_invalid(self, form):
         print(">> FORM INVALID.")
         return super().form_invalid(form)
+
+
+# update view
+class MakeUpdate(UpdateView):
+    model = Make
+    fields = ['name']
+
+
+class AutoUpdate(UpdateView):
+    model = Auto
+    # queryset = Auto.objects.all()
+    fields ='__all__'
+    form_class = None
+    pk_url_kwarg = 'pks'
+    slug_field = 'nickname'
+    slug_url_kwarg = 'slugify'
+    query_pk_and_slug = True
+    success_url = reverse_lazy('gcbv:auto_detail_pk', args=[5])
+    template_name = 'gcbv/auto_form_v.html'
+
+
+    def form_valid(self, form):
+        print(">> FORM VALID.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(">> FORM INVALID.")
+        return super().form_invalid(form)
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # return queryset.filter(make__name='BMW')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zxc'] = 'Hello from get_context_data method!'
+        return context

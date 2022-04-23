@@ -13,7 +13,11 @@ urlpatterns = [
 
     path('form/', views.FormExView.as_view(), name='form_view'),
 
-    path('make_create/', views.MakeCrate.as_view(), name='make_create'),
-    path('auto_create/', views.AutoCrate.as_view(), name='auto_create'),
+    path('make_create/', views.MakeCreate.as_view(), name='make_create'),
+    path('auto_create/', views.AutoCreate.as_view(), name='auto_create'),
+
+    path('make_update/<int:pk>/', views.MakeUpdate.as_view(), name='make_update'),
+    path('auto_update/<int:pks>/', views.AutoUpdate.as_view(), name='auto_update_pk'),
+    path('auto_update/<slug:slugify>/', views.AutoUpdate.as_view(), name='auto_update_slug'),
 
 ]
