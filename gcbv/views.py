@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.urls import reverse_lazy
 
 from .models import Make, Auto
 from .forms import FormEx
@@ -90,3 +91,26 @@ class FormExView(FormView):
         context = super().get_context_data(**kwargs)
         context['zxc'] = 'Hello from get_context_data method!'
         return context
+
+
+# Create view
+class MakeCrate(CreateView):
+    model = Make
+    fields = ['name']
+
+
+class AutoCrate(CreateView):
+    model = Auto
+    fields ='__all__'
+    form_class = None
+    success_url = reverse_lazy('gcbv:auto_detail', args=[5])
+    template_name = 'gcbv/auto_form_v.html'
+
+
+    def form_valid(self, form):
+        print(">> FORM VALID.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(">> FORM INVALID.")
+        return super().form_invalid(form)
